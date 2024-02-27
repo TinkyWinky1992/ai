@@ -13,7 +13,8 @@ import openai
 
 file = os.path.join("data", "ai-description.txt")
 context = utils.readfile(file)
-openai.api_key = "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"
+openai.api_key = os.environ.get("KEY")
+print(os.environ.get("KEY"))
 llm = OpenAI(model="gpt-3.5-turbo", openai_api_key=openai.api_key)
 
 healthcare_datasets = os.path.join("data", "healthcare_dataset.csv")

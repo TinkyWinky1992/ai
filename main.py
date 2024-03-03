@@ -9,6 +9,7 @@ from llama_index.core.tools import QueryEngineTool, ToolMetadata
 from llama_index.core.agent import ReActAgent
 from llama_index.llms.openai import OpenAI
 from note_engine import note_engine
+from pdf import family_medicine_engine
 import openai
 
 file = os.path.join("data", "ai-description.txt")
@@ -25,9 +26,10 @@ healthcare_query.update_prompts({"pandas_prompt": new_prompt})
 
 tools = {
     note_engine,
-    QueryEngineTool(query_engine=healthcare_query, metadata=ToolMetadata(
-        name="healthcare data",
-        description=" this gives information about healthcare "
+
+    QueryEngineTool(query_engine=family_medicine_engine, metadata=ToolMetadata(
+        name="family medicine data",
+        description=" this gives information and details about family medicine "
     )),
 }
 

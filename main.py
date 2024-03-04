@@ -27,7 +27,10 @@ def main():
     agent = ReActAgent.from_tools(tools, llm=llm, verbose=True, prefix_messages=prefix_messages, memory=memory)
 
     while (prompts := input("Enter a prompt (q to quit): ")) != "q":
+        print(type(agent))
+
         result = agent.query(prompts)
+        print(type(result))
         print(result)
 
 

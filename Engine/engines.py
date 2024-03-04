@@ -3,8 +3,8 @@ from Engine import EngineUtils
 
 actionInput_engine = FunctionTool.from_defaults(
     fn=EngineUtils.get_actionInput,
-    name="get action input",
-    description="this tool use for getting the action input when you need a tool to help with your assist"
+    name="schedule-appointment",
+    description="this tool will help you providing appointment, you need to give time and date. "
 )
 note_engine = FunctionTool.from_defaults(
     fn=EngineUtils.save_note,

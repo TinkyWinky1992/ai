@@ -4,15 +4,23 @@ from Engine.engines import note_engine, actionInput_engine
 from llama_hub.tools.wikipedia.base import WikipediaToolSpec
 
 wiki_spec = WikipediaToolSpec()
-# Get the search wikipedia tool
+
+# Get the search Wikipedia tool
 tool = wiki_spec.to_tool_list()[1]
+
+# Define the medicine-related tool
+medicine_tool = QueryEngineTool(
+    query_engine=family_medicine_engine,
+    metadata=ToolMetadata(
+        name="medicine_data",
+        description="this gives detailed information about family medicine"
+    )
+)
+
+
 tools = {
     tool,
     note_engine,
     actionInput_engine,
-    QueryEngineTool(query_engine=family_medicine_engine, metadata=ToolMetadata(
-        name="medicine-data",
-        description=" this gives information and details about family medicine "
-    )),
-
+    medicine_tool,
 }

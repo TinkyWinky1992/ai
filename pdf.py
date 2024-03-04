@@ -13,7 +13,7 @@ print(os.environ.get("KEY"))
 llm = OpenAI(model="gpt-3.5-turbo", openai_api_key=openai.api_key)
 
 
-def get_index(data, index_name, llm=None):
+def get_index(data, index_name):
     index = None
     if not os.path.exists(index_name):
         print("building index", index_name)
@@ -27,5 +27,5 @@ def get_index(data, index_name, llm=None):
 
 pdf_path = os.path.join("data", "Family_medicine.pdf")
 family_medicine_pdf = PDFReader().load_data(file=pdf_path)
-family_medicine_index = get_index(family_medicine_pdf, "family medicine", llm=llm)
+family_medicine_index = get_index(family_medicine_pdf, "medicine")
 family_medicine_engine = family_medicine_index.as_query_engine()

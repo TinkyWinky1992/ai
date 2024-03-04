@@ -24,14 +24,11 @@ memory = ChatMemoryBuffer.from_defaults(token_limit=1500)
 def main():
     openai.api_key = os.environ.get("KEY")
     llm = OpenAI(model="gpt-3.5-turbo", openai_api_key=openai.api_key)
-    agent = ReActAgent.from_tools(tools, llm=llm, verbose=True, prefix_messages= prefix_messages,memory=memory)
+    agent = ReActAgent.from_tools(tools, llm=llm, verbose=True, prefix_messages=prefix_messages, memory=memory)
 
     while (prompts := input("Enter a prompt (q to quit): ")) != "q":
         result = agent.query(prompts)
         print(result)
-
-
-
 
 
 if __name__ == '__main__':

@@ -7,7 +7,6 @@ load_dotenv()
 
 import os
 import utils
-from llama_index.core.chat_engine.context import ContextChatEngine
 from llama_index.core.agent import ReActAgent
 from llama_index.llms.openai import OpenAI
 import openai
@@ -15,7 +14,6 @@ from tools import tools
 
 file = os.path.join("data", "ai-description.txt")
 context = utils.readfile(file)
-
 prefix_messages = [ChatMessage(role="system", content=context)]
 
 memory = ChatMemoryBuffer.from_defaults(token_limit=1500)
@@ -27,11 +25,14 @@ def main():
     agent = ReActAgent.from_tools(tools, llm=llm, verbose=True, prefix_messages=prefix_messages, memory=memory)
 
     while (prompts := input("Enter a prompt (q to quit): ")) != "q":
-        print(type(agent))
+        try:
+            resultOfAgentReact = agent.query(prompts)
+            print(resultOfAgentReact)
+        except ValueError as e:
 
-        result = agent.query(prompts)
-        print(type(result))
-        print(result)
+            resp = llm.complete(prompts)
+            print(resp)
+
 
 
 if __name__ == '__main__':

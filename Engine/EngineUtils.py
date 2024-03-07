@@ -1,10 +1,7 @@
 import os
+from datetime import datetime
 
-note_file = os.path.join("../data", "notes.txt")
-
-
-def get_actionInput(actionInput):
-    print("actionnnn: ", actionInput)
+note_file = os.path.join(".", "notes.txt")
 
 
 def save_note(note):
@@ -15,3 +12,9 @@ def save_note(note):
         f.writelines([note + "\n"])
 
     return "note Saved"
+
+
+#def get_current_date_and_time() -> str:
+    """Returns the current date and time"""
+   # now = datetime.now()
+  #  return now.strftime("%m/%d/%Y, %H:%M:%S")

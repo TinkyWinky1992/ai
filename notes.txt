@@ -1,4 +1,1 @@
-headache
-my leg is broken
-problem: headache level: 5
-Aproblem: headache level: 5
+Symptoms: fever of 36 degrees, feeling hot

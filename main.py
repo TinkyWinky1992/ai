@@ -1,7 +1,16 @@
 from dotenv import load_dotenv
+<<<<<<< HEAD
 from llama_index.core import SimpleDirectoryReader
 from llama_index.core import ChatPromptTemplate
 from llama_index.core.memory import ChatMemoryBuffer
+=======
+from llama_index.core.base.llms.types import ChatMessage
+
+load_dotenv()
+from llama_index.core.memory import ChatMemoryBuffer
+import os
+import utils
+>>>>>>> 01b866f3b7d24b65019a89a232268b32e3f79403
 from llama_index.core.agent import ReActAgent
 from llama_index.llms.openai import OpenAI
 import openai
@@ -29,9 +38,17 @@ def main():
         except Exception as e:
             print(f"An error occurred: {e}")
 
+<<<<<<< HEAD
         finally:
             memory.ф
             memory.add_message(ChatMessage(role="user", context=resultOfAgentReact))
+=======
+            resultOfAgentReact = llm.complete(prompts)
+            print(resultOfAgentReact)
+        finally:
+            memory.put(ChatMessage(role="system", context=resultOfAgentReact))
+            memory.put(ChatMessage(role="user", context=prompts))
+>>>>>>> 01b866f3b7d24b65019a89a232268b32e3f79403
 
 
 

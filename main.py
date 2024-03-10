@@ -1,16 +1,9 @@
 from dotenv import load_dotenv
-<<<<<<< HEAD
-from llama_index.core import SimpleDirectoryReader
-from llama_index.core import ChatPromptTemplate
-from llama_index.core.memory import ChatMemoryBuffer
-=======
-from llama_index.core.base.llms.types import ChatMessage
 
 load_dotenv()
+
+from llama_index.core.base.llms.types import ChatMessage
 from llama_index.core.memory import ChatMemoryBuffer
-import os
-import utils
->>>>>>> 01b866f3b7d24b65019a89a232268b32e3f79403
 from llama_index.core.agent import ReActAgent
 from llama_index.llms.openai import OpenAI
 import openai
@@ -25,7 +18,6 @@ context = utils.readfile(file)
 memory = ChatMemoryBuffer.from_defaults(token_limit=1500)
 
 
-
 def main():
     openai.api_key = os.environ.get("KEY")
     llm = OpenAI(model="gpt-3.5-turbo", openai_api_key=openai.api_key)
@@ -33,24 +25,20 @@ def main():
 
     while (prompts := input("Enter a prompt (q to quit): ")) != "q":
         try:
-            resultOfAgentReact = agent.query(prompts)
+            conversation_history = memory.get_all()
+            # Combine all messages into a single string
+            conversation_text = ""
+            for message in conversation_history:
+                conversation_text += message.content + "\n"
+
+            resultOfAgentReact = agent.query(conversation_text + "\n" + prompts)
             print(resultOfAgentReact)
         except Exception as e:
             print(f"An error occurred: {e}")
 
-<<<<<<< HEAD
-        finally:
-            memory.ф
-            memory.add_message(ChatMessage(role="user", context=resultOfAgentReact))
-=======
-            resultOfAgentReact = llm.complete(prompts)
-            print(resultOfAgentReact)
         finally:
             memory.put(ChatMessage(role="system", context=resultOfAgentReact))
             memory.put(ChatMessage(role="user", context=prompts))
->>>>>>> 01b866f3b7d24b65019a89a232268b32e3f79403
-
-
 
 
 if __name__ == "__main__":

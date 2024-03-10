@@ -1,21 +1,20 @@
 from dotenv import load_dotenv
-
-from llama_index.core.base.llms.types import ChatMessage
+from llama_index.core import SimpleDirectoryReader
+from llama_index.core import ChatPromptTemplate
 from llama_index.core.memory import ChatMemoryBuffer
-
-load_dotenv()
-
-import os
-import utils
 from llama_index.core.agent import ReActAgent
 from llama_index.llms.openai import OpenAI
 import openai
+import os
+import utils
 from tools import tools
+
+load_dotenv()
 
 file = os.path.join("data", "ai-description.txt")
 context = utils.readfile(file)
-
 memory = ChatMemoryBuffer.from_defaults(token_limit=1500)
+
 
 
 def main():
@@ -27,12 +26,15 @@ def main():
         try:
             resultOfAgentReact = agent.query(prompts)
             print(resultOfAgentReact)
-        except ValueError as e:
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
-            resp = llm.complete(prompts)
-            print(resp)
+        finally:
+            memory.ф
+            memory.add_message(ChatMessage(role="user", context=resultOfAgentReact))
 
 
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

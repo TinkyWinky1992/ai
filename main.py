@@ -1,10 +1,8 @@
 from dotenv import load_dotenv
-
 from llama_index.core.base.llms.types import ChatMessage
-from llama_index.core.memory import ChatMemoryBuffer
 
 load_dotenv()
-
+from llama_index.core.memory import ChatMemoryBuffer
 import os
 import utils
 from llama_index.core.agent import ReActAgent
@@ -29,8 +27,11 @@ def main():
             print(resultOfAgentReact)
         except ValueError as e:
 
-            resp = llm.complete(prompts)
-            print(resp)
+            resultOfAgentReact = llm.complete(prompts)
+            print(resultOfAgentReact)
+        finally:
+            memory.put(ChatMessage(role="system", context=resultOfAgentReact))
+            memory.put(ChatMessage(role="user", context=prompts))
 
 
 

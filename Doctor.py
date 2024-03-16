@@ -18,6 +18,7 @@ class Roberto:
         self.context = utils.readfile(self.file)
         self.memory = ChatMemoryBuffer.from_defaults(token_limit=1500)
 
+
         openai.api_key = " "
         self.llm = OpenAI(model="gpt-3.5-turbo", openai_api_key=openai.api_key)
         self.agent = ReActAgent.from_tools(tools, llm=self.llm, verbose=True, context=self.context, memory=self.memory)

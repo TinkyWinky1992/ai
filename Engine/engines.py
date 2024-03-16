@@ -1,6 +1,11 @@
 from llama_index.core.tools.function_tool import FunctionTool
+from appointment import  getAppointment
 
-from Engine.EngineUtils import save_schedule
+
+def save_schedule(problem, level):
+    getAppointment(level, problem)
+    return "appointment saved"
+
 
 schedule_engine = FunctionTool.from_defaults(
     fn=save_schedule,

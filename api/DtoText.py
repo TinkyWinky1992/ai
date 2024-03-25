@@ -11,3 +11,4 @@ def appointmentMessage(level, typeOfProblem, username, email) -> dict:
         'level': level,
         'problem': typeOfProblem,
     }
+

@@ -19,7 +19,7 @@ medicine_tool = QueryEngineTool(
 
 
 tools = {
-    tool,
     schedule_engine,
+    tool,
     medicine_tool,
 }

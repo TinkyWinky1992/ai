@@ -1,15 +1,26 @@
 from llama_index.core.tools.function_tool import FunctionTool
-from appointment import  getAppointment
+from wikipedia import cache
+
+from appointment import getAppointment
 
 
-def save_schedule(problem, level):
-    getAppointment(level, problem)
-    return "appointment saved"
+def handle_schedule(problem,  level):
+    print(type(level))
+    try:
+        level = int(level)
+        getAppointment(level, problem)
+        return "appointment saved"
+    except Exception as e:
+        print("PROBLEMM: ", e)
+        return "encountered a problem with the appointment"
 
 
 schedule_engine = FunctionTool.from_defaults(
-    fn=save_schedule,
+    fn=handle_schedule,
     name="schedule",
-    description="This tool will help you provide an appointment. Write the problem of the user if he has one, "
-                "if not, write {nothing}. This tool will be activated only when the user requests an appointment."
+    description="this tool will provide you to make appointment to the user."
+                "asking him if they want appointment first!"
+                "ask him about their situation."
+                "rate the problem with your understanding"
+                "write details about the problem that the user have"
 )

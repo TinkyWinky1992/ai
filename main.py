@@ -2,10 +2,10 @@ import urllib
 from mailbox import Message
 from flask_cors import CORS
 from flask import Flask, jsonify
-from api.DtoText import  doctorMessage
+from api.DtoText import doctorMessage
 from Doctor import Roberto
 from flask import request
-from  utils import  profileFile
+from utils import profileFile
 app = Flask(__name__)
 CORS(app)
 roberto_ai = Roberto()

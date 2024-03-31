@@ -21,6 +21,6 @@ schedule_engine = FunctionTool.from_defaults(
     description="this tool will provide you to make appointment to the user."
                 "asking him if they want appointment first!"
                 "ask him about their situation."
-                "rate the problem with your understanding"
+                "rate the problem with your understanding you have to insert a number between 1-10"
                 "write details about the problem that the user have"
 )

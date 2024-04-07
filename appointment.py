@@ -8,7 +8,7 @@ url = "http://localhost:5000/queue/create"
 
 def getAppointment(level, problem):
     user_profile: dict = TakeUserDetails()
-    appointment = appointmentMessage(level, problem, user_profile['username'], user_profile['email'])
+    appointment = appointmentMessage(level, problem, user_profile['username'], user_profile['email'], user_profile['id'])
     response = requests.post(url, json=appointment)
     print(response)
 

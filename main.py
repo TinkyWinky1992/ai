@@ -14,7 +14,7 @@ roberto_ai = Roberto()
 @app.route("/", methods=['GET'])
 async def startConversation():
 
-    profileFile(request.args.get('username'), request.args.get('email'))
+    profileFile(request.args.get('username'), request.args.get('email'), request.args.get('id'))
     roberto_ai.startNewConversation()
     return jsonify("True")
 

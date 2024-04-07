@@ -8,15 +8,16 @@ def readfile(file_path):
     return dna
 
 
-def profileFile(username, email):
+def profileFile(username, email, id):
     userdict = {
         "username": username,
-        "email": email
+        "email": email,
+        "id": id
     }
     with open("userdata.json", "w") as outfile:
         json.dump(userdict, outfile, indent=4)
 
-def TakeUserDetails()->dict:
+def TakeUserDetails() -> dict:
     with open("userdata.json", 'r') as openfile:
         json_string = openfile.read()
         json_object = json.loads(json_string)

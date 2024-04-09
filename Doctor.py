@@ -35,11 +35,11 @@ class Roberto:
         self.conversation_history = None
         self.file = os.path.join("data", "ai-description.txt")
         self.context = utils.readfile(self.file)
-        self.memory = ChatMemoryBuffer.from_defaults(token_limit=1500)
+        self.memory = ChatMemoryBuffer.from_defaults(token_limit=500)
 
-        openai.api_key = "sk-"
+        openai.api_key = "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"
 
-        self.llm = OpenAI(model="gpt-4", openai_api_key=openai.api_key)
+        self.llm = OpenAI(model="gpt-4-0125-preview", openai_api_key=openai.api_key)
         self.agent = ReActAgent.from_tools(tools, llm=self.llm, verbose=True, context=self.context, memory=self.memory)
 
     def startNewConversation(self):
@@ -47,7 +47,7 @@ class Roberto:
 
     def ConversationPerMessage(self, prompts) -> str:
         resultOfAgentReact = ""
-        self.conversation_history = self.memory.get_all()   
+        self.conversation_history = self.memory.get_all()
         # Combine all messages into a single string
         conversation_text = ""
         for message in self.conversation_history:

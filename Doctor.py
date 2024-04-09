@@ -11,10 +11,12 @@ from tools import tools
 from dotenv import load_dotenv
 
 load_dotenv()
-
+def handleParse():
+    pass
 
 def generateResponse(resultOfAgentReact) -> str:
     try:
+
         # Attempt JSON parsing first
         result = json.loads(resultOfAgentReact.response)
         print("not on problem ", result.action_input)
@@ -37,7 +39,7 @@ class Roberto:
         self.context = utils.readfile(self.file)
         self.memory = ChatMemoryBuffer.from_defaults(token_limit=1500)
 
-        openai.api_key = "sk-"
+        openai.api_key = "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"
 
         self.llm = OpenAI(model="gpt-4", openai_api_key=openai.api_key)
         self.agent = ReActAgent.from_tools(tools, llm=self.llm, verbose=True, context=self.context, memory=self.memory)
@@ -47,14 +49,22 @@ class Roberto:
 
     def ConversationPerMessage(self, prompts) -> str:
         resultOfAgentReact = ""
-        self.conversation_history = self.memory.get_all()   
+
+        self.conversation_history = self.memory.get_all()
         # Combine all messages into a single string
         conversation_text = ""
         for message in self.conversation_history:
             conversation_text += message.content + "\n"
 
         # Call the agent and store the response
-        resultOfAgentReact = self.agent.query(conversation_text + "\n" + prompts)
-        self.memory.put(ChatMessage(role="system", context=resultOfAgentReact.response))
-        self.memory.put(ChatMessage(role="user", context=prompts))
-        return generateResponse(resultOfAgentReact)
+        try:
+            resultOfAgentReact = self.agent.query(conversation_text + "\n" + prompts)
+            self.memory.put(ChatMessage(role="system", context=resultOfAgentReact.response))
+            self.memory.put(ChatMessage(role="user", context=prompts))
+            return generateResponse(resultOfAgentReact)
+        except Exception as e:
+            res = self.agent.chat(prompts)
+            self.memory.put(ChatMessage(role="system", context=res.response))
+            self.memory.put(ChatMessage(role="user", context=prompts))
+            return res
+
